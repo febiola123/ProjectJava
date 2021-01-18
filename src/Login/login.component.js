@@ -1,33 +1,97 @@
-import React, { Component } from "react";
+import React, { Component,useState} from "react";
+import {Link} from "react-router-dom"
+import{Container
+    ,Col
+    ,Row
+    ,Card
+    ,CardTitle
+    ,CardBody
+    ,Button
+    ,CustomInput
+    ,InputGroupAddon,
+    InputGroupText
+    ,Form, FormGroup, Label, Input, FormText
+} from "reactstrap";
+import Header from "../Tambahan/Header"
 
 export default class Login extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            email:'',
+            password:'',
+            isAdmin:'',
+            isOpen:false,
+            isCheck:false,
+        }
+        this.onClickButton = this.onClickButton.bind(this)
+        this.toggle = this.toggle.bind(this);
+    }
+    onChangeEmail= (e)=>{
+        this.setState({
+            email : e.target.value
+        })
+    }
+    onChangePassword = (e)=>{
+        this.setState({
+            password:e.target.value
+        })
+    }
+    onClickButton(){
+        var email = this.state.email;
+        if(email === "admin@gmail.com"){
+            window.location.href="/admin";
+        }
+    }
+    handleCheck = (e)=>{
+        this.setState({
+            isCheck:!this.state.isCheck
+        })
+    }
+    toggle(){
+        this.setState({
+            isOpen:!this.state.isOpen
+        })
+    }
     render() {
+        const {email,password} = this.state;
         return (
-            <form>
-                <h3>Sign In</h3>
-
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
-                </div>
-
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
-                </div>
-
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                <p className="forgot-password text-right">
-                    Forgot <a href="signup.components.js">password?</a>
-                </p>
-            </form>
+            <React.Fragment>
+            <Header />
+            <div class="app flex-row align-items-center">
+            <Container className="mx-auto" fluid="lg">
+            <Card style={{maxWidth:"800px",margin:"auto"}}>
+                <CardBody>
+                    <Col>
+                    <CardTitle  tag="h2">Login</CardTitle>
+                    </Col>
+                    <Form>
+                        <FormGroup row>
+                            <Label for="exampleEmail" md={2}>Email</Label>
+                            <Col md={10}>
+                                <Input type="email" name="email" value={email} onChange={this.onChangeEmail} id="exampleEmail" placeholder="Type your username" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="exampleEmail" md={2}>Password</Label>
+                            <Col md={10}>
+                                <Input type={this.state.isCheck?"text":"password"} name="password" value={password} onChange={this.onChangePassword}  id="exampleEmail" placeholder="Type your password" />
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                    <Row>
+                        <Col md="2">
+                            <Button onClick={this.onClickButton} color="primary">Login</Button>
+                        </Col>
+                        <Col md="10">
+                            <CustomInput type="checkbox" onChange={this.handleCheck} id="exampleCustomCheckbox" label="Show Your password" />
+                        </Col>
+                    </Row>
+                </CardBody>
+            </Card>
+            </Container>
+            </div>
+            </React.Fragment>
         );
     }
 }
