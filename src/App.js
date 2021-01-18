@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Login/login.component";
 import SignUp from "./SignUp/signup.component";
 import Admin from "./Admin/admin.component";
+import Product from "./Admin/product.component"
 import {Admin1,User} from "./Tambahan/Auth";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/admin" component = {Admin} />
+            <Route path="/product" component = {Product} />
           </Switch>
           </Router>
   );

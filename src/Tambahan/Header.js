@@ -29,7 +29,11 @@ const Header=(props)=>{
         </NavItem>
         <NavItem>
           <NavLink href="/product">Product</NavLink>
-        </NavItem></React.Fragment>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/">Logout</NavLink>
+        </NavItem>
+        </React.Fragment>
     }
       return (
           <div>
