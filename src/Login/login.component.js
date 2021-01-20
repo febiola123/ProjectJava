@@ -1,5 +1,5 @@
 import React, { Component,useState} from "react";
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import{Container
     ,Col
     ,Row
@@ -12,7 +12,9 @@ import{Container
     InputGroupText
     ,Form, FormGroup, Label, Input, FormText
 } from "reactstrap";
+import axios from 'axios';
 import Header from "../Tambahan/Header"
+import BASE_URL from "../Tambahan/Url";
 
 export default class Login extends Component {
     constructor(props){
@@ -38,9 +40,35 @@ export default class Login extends Component {
         })
     }
     onClickButton(){
-        var email = this.state.email;
-        if(email === "admin@gmail.com"){
+        const {email,password} = this.state;
+        if(email === "admin@gmail.com" && password === 'admin123'){
+            
+            const user = {
+                'user':email,
+                'role':'admin'
+            };
+            localStorage.setItem('user',JSON.stringify(user));
             window.location.href="/admin";
+        }
+        else{
+            axios.post(BASE_URL+'login',{
+                'email':email,
+                'password':password
+            })
+            .then(res=>{
+                const {email,role} = res.data.user;
+                
+            const user = {
+                'user':email,
+                'role':role
+            };
+            localStorage.setItem('user',JSON.stringify(user));
+            
+            window.location.href="/home";
+            })
+            .catch(err=>{
+                console.log(err.response);
+            })
         }
     }
     handleCheck = (e)=>{
@@ -53,8 +81,22 @@ export default class Login extends Component {
             isOpen:!this.state.isOpen
         })
     }
+    componentDidMount(){
+        var user = localStorage.getItem('user');
+        console.log(user);
+    }
     render() {
+        if(localStorage.getItem('user') !== null){
+            var user = localStorage.getItem('user');
+            if(user.role == 'admin'){
+                return <Redirect to="/admin"/>
+            }else{
+            return <Redirect to="/home"/>
+            }
+        }
+
         const {email,password} = this.state;
+
         return (
             <React.Fragment>
             <Header />

@@ -10,6 +10,10 @@ import{
 } from "reactstrap"
 import axios from "axios"
 
+const logout = ()=>{
+  localStorage.clear();
+}
+
 const Header=(props)=>{
     
     const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +26,7 @@ const Header=(props)=>{
         <NavItem>
           <NavLink href="/sign-up">Register</NavLink>
         </NavItem></React.Fragment>
-    }else{
+    }else if(props.isAdmin == 1){
       nav =<React.Fragment>
         <NavItem>
             <NavLink href="/admin">Home</NavLink>
@@ -31,7 +35,19 @@ const Header=(props)=>{
           <NavLink href="/product">Product</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/">Logout</NavLink>
+          <NavLink href="/" onClick={()=>{localStorage.clear()}}>Logout</NavLink>
+        </NavItem>
+        </React.Fragment>
+    }else{
+      nav =<React.Fragment>
+        <NavItem>
+            <NavLink href="/home">Home</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/produk">Product</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/" onClick={()=>{localStorage.clear()}}>Logout</NavLink>
         </NavItem>
         </React.Fragment>
     }

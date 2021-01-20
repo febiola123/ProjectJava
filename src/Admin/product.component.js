@@ -35,6 +35,7 @@ export default class Admin extends Component{
             product:[],
             baseUrl:"http://pesananapi.herokuapp.com/",
             addModal:false,
+            updateModal:false,
             option:[
                 {
                     type:"Makanan"
@@ -50,6 +51,7 @@ export default class Admin extends Component{
 
         }
         this.showModal = this.showModal.bind(this);
+        this.showUpdate = this.showUpdate.bind(this);
     }
     componentDidMount(){
         axios.get(this.state.baseUrl+"food")
@@ -60,9 +62,18 @@ export default class Admin extends Component{
             })
         })
     }
+    showUpdate(){
+        this.setState({
+            updateModal:!this.state.updateModal
+        })
+    }
     showModal(){
         this.setState({
-            addModal:!this.state.addModal
+            addModal:!this.state.addModal,
+            namaProduct:'',
+            hargaProduct:0,
+            stock:0,
+            type:'',
         })
     }
     handleName = e => {
@@ -83,6 +94,19 @@ export default class Admin extends Component{
     handleType = selectedStatus =>{
         this.setState({
             type:selectedStatus.target.value
+        })
+    }
+    handleUpdateModal = id=>{
+        axios.get(this.state.baseUrl+'food/'+id)
+        .then(res=>{
+            const data = res.data;
+            this.setState({
+                namaProduct:data.name,
+                hargaProduct:data.price,
+                stock:data.stock,
+                type:data.type,
+                updateModal:!this.state.updateModal
+            })
         })
     }
     handleAddForm = ()=>{
@@ -115,17 +139,43 @@ export default class Admin extends Component{
 
         const renderData = product.map((data,index)=>{
             return(
-                <tr key={data._id}>
+                <tr key={index}>
                     <td>{index+1}</td>
                     <td>{data.name}</td>
                     <td>{data.price}</td>
                     <td>{data.stock}</td>
                     <td>{data.type}</td>
+                    <td>
+                        <Button onClick={()=>this.handleUpdateModal(data._id)}>Update</Button>
+                    </td>
                 </tr>
             )
         })
         return(
             <React.Fragment>
+                <Modal isOpen={this.state.updateModal}>
+                <ModalHeader toggle={this.showUpdate}>Add Product</ModalHeader>
+                <ModalBody>
+                    Nama Produk
+                    <Input type="text" onChange={this.handleName} value={this.state.namaProduct||' '}/>
+                    Harga Product
+                    <Input type="text" onChange={this.handlePrice} value={this.state.hargaProduct||' '}/>
+                    Stok Produk
+                    <Input type="text" onChange={this.handleStock} value={this.state.stock||' '} />
+                    Jenis Produk
+                    <select className="form-control" onChange={this.handleType} value={this.state.type}>
+                        {selectOption}
+                    </select>
+                </ModalBody>
+                <ModalFooter>
+                     <Button className="btn btn-secondary" onClick={this.showUpdate}>
+                            Close
+                        </Button>
+                        <Button className="btn btn-info">
+                            Save Changes
+                        </Button>
+                </ModalFooter>
+            </Modal>
             <Modal isOpen={this.state.addModal}>
                 <ModalHeader toggle={this.showModal}>Add Product</ModalHeader>
                 <ModalBody>
@@ -149,7 +199,7 @@ export default class Admin extends Component{
                         </Button>
                 </ModalFooter>
             </Modal>
-            <Header isAdmin={true}/>
+            <Header isAdmin={1}/>
             <Container fluid className="mt-3">
             <Button className="mb-2" color="success" onClick={this.showModal}>Add Product</Button>
                 <Table size="sm" dark>
@@ -160,6 +210,7 @@ export default class Admin extends Component{
                             <th>Harga Product</th>
                             <th>Stok</th>
                             <th>Jenis Product</th>
+                            <th>Option</th>
                         </tr>
                     </thead>
                     <tbody>

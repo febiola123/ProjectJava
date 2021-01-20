@@ -4,7 +4,7 @@ export default class Admin extends Component{
     render(){
         return(
             <React.Fragment>
-            <Header isAdmin={true}/>
+            <Header isAdmin={1}/>
             <div>
                 <h1>Ini halaman Admin</h1>
             </div>
