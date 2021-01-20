@@ -8,6 +8,8 @@ import Login from "./Login/login.component";
 import SignUp from "./SignUp/signup.component";
 import Admin from "./Admin/admin.component";
 import Product from "./Admin/product.component"
+import Home from "./User/home";
+import Pesan from "./User/pesan";
 import {Admin1,User} from "./Tambahan/Auth";
 
 function App() {
@@ -16,8 +18,10 @@ function App() {
             <Route exact path='/' component={Login} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
-            <Route path="/admin" component = {Admin} />
-            <Route path="/product" component = {Product} />
+            <Route path="/admin" component = {Admin1(Admin)} />
+            <Route path="/product" component = {Admin1(Product)} />
+            <Route path="/home" component = {User(Home)} />
+            <Route path="/pesan/:id" component = {User(Pesan)} />
           </Switch>
           </Router>
   );

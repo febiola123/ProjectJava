@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 
 const getUser = ()=>{
     const fromStorage = JSON.parse(localStorage.getItem('user'));
-    return {user:'',role:'guest'};
+    return  fromStorage !== null ? fromStorage : {user:'',role:'guest'};
 }
 
 const isValidRole = ({allowedRules,role})=>{
@@ -26,7 +26,7 @@ const Authorization = allowedRules=>WrappedComponet => class withAuth extends Co
     }
 }
 
-export const Admin1 = Authorization(['admin','guest']);
+export const Admin1 = Authorization(['admin']);
 export const User = Authorization(['admin','user']);
 
 export default{
