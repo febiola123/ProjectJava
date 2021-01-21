@@ -7,6 +7,10 @@ import{
     Nav,
     NavItem,
     NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
 } from "reactstrap"
 import axios from "axios"
 
@@ -20,17 +24,16 @@ const Header=(props)=>{
     const toggle = () => setIsOpen(!isOpen);
     let nav;
     if(props.isAdmin == null){
-      nav =<React.Fragment><NavItem>
+      nav =<React.Fragment>
+        <NavItem>
             <NavLink href="/sign-in">Login</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/sign-up">Register</NavLink>
-        </NavItem></React.Fragment>
+        </NavItem>
+        </React.Fragment>
     }else if(props.isAdmin == 1){
       nav =<React.Fragment>
-        <NavItem>
-            <NavLink href="/admin">Home</NavLink>
-        </NavItem>
         <NavItem>
           <NavLink href="/product">Product</NavLink>
         </NavItem>
@@ -41,10 +44,26 @@ const Header=(props)=>{
     }else{
       nav =<React.Fragment>
         <NavItem>
-            <NavLink href="/home">Home</NavLink>
+          <NavLink href="/produk">Product</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/produk">Product</NavLink>
+          <NavLink href="/my-order">Pesanan Saya</NavLink>
+        </NavItem>
+        <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Booking
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <NavLink href="/booking-room">Booking Ruangan</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink href="/booking-seat">Booking Tempat Duduk</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+        </UncontrolledDropdown>
+        <NavItem>
+          <NavLink href="/packet">Pengantaran Paket</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/" onClick={()=>{localStorage.clear()}}>Logout</NavLink>
@@ -54,7 +73,7 @@ const Header=(props)=>{
       return (
           <div>
             <Navbar color="light" light expand="md">
-              <NavbarBrand>Kantin IT DEL</NavbarBrand>
+              <NavbarBrand href="/">Kantin IT DEL</NavbarBrand>
               <NavbarToggler onClick={toggle} />
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
