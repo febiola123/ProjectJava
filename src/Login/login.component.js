@@ -33,6 +33,7 @@ export default class Login extends Component {
         this.setState({
             email : e.target.value
         })
+        console.log(e.target.value);
     }
     onChangePassword = (e)=>{
         this.setState({
@@ -91,7 +92,7 @@ export default class Login extends Component {
             if(user.role == 'admin'){
                 return <Redirect to="/admin"/>
             }else{
-            return <Redirect to="/home"/>
+                return <Redirect to="/home"/>
             }
         }
 

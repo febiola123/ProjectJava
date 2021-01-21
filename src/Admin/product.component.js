@@ -42,6 +42,9 @@ export default class Admin extends Component{
                 },
                 {
                     type:"Minuman"
+                },
+                {
+                    type:"Snack"
                 }
             ],
             type:'',
