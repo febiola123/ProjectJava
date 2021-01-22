@@ -29,7 +29,7 @@ export default class Home extends Component{
                     <td>{index+1}</td>
                     <td>{data.name}</td>
                     <td>{data.price}</td>
-                    <td>{data.stock}</td>
+                    <td>{data.stock-data.stockLaku}</td>
                     <td>{data.type}</td>
                     <td><a href={'/pesan/'+data._id} className="btn btn-primary">Pesan</a></td>
                 </tr>
