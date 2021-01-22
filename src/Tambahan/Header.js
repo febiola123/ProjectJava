@@ -47,7 +47,7 @@ const Header=(props)=>{
     }else{
       nav =<React.Fragment>
         <NavItem>
-          <NavLink href="/produk">Product</NavLink>
+          <NavLink href="/home">Product</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/my-order">Pesanan Saya</NavLink>

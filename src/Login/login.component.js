@@ -63,8 +63,9 @@ export default class Login extends Component {
                 'user':email,
                 'role':role
             };
+            console.log(res.data);
             localStorage.setItem('user',JSON.stringify(user));
-            
+            localStorage.setItem('ids',res.data.user._id);
             window.location.href="/home";
             })
             .catch(err=>{

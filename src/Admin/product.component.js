@@ -36,6 +36,8 @@ export default class Admin extends Component{
             baseUrl:"http://pesananapi.herokuapp.com/",
             addModal:false,
             updateModal:false,
+            id:'',
+            stockLaku:0,
             option:[
                 {
                     type:"Makanan"
@@ -55,6 +57,7 @@ export default class Admin extends Component{
         }
         this.showModal = this.showModal.bind(this);
         this.showUpdate = this.showUpdate.bind(this);
+        this.sendUpdate = this.sendUpdate.bind(this);
     }
     componentDidMount(){
         axios.get(this.state.baseUrl+"food")
@@ -98,6 +101,7 @@ export default class Admin extends Component{
         this.setState({
             type:selectedStatus.target.value
         })
+        console.log(selectedStatus.target.value)
     }
     handleUpdateModal = id=>{
         axios.get(this.state.baseUrl+'food/'+id)
@@ -108,17 +112,37 @@ export default class Admin extends Component{
                 hargaProduct:data.price,
                 stock:data.stock,
                 type:data.type,
-                updateModal:!this.state.updateModal
+                updateModal:!this.state.updateModal,
+                id:id
             })
         })
     }
+    sendUpdate(){
+        axios.put(this.state.baseUrl+"food/"+this.state.id,{
+            "name":this.state.namaProduct,
+            "price":this.state.hargaProduct,
+            "stock":this.state.stock,
+            "type":this.state.type,
+            
+        })
+        .then(res=>{
+            alert("Data Berhasil di update")
+            window.location.reload();
+        })
+        .catch(err=>{
+            alert("Data tidak bisa diupdate");
+            // window.location.reload();
+            console.log(err);
+        })
+    }
     handleAddForm = ()=>{
-        const{namaProduct,type,hargaProduct,stock} = this.state;
+        const{namaProduct,type,hargaProduct,stock,stockLaku} = this.state;
         axios.post(this.state.baseUrl+"food",{
             "name":namaProduct,
             "price":hargaProduct,
             "stock":stock,
-            "type":type
+            "type":type,
+            "stockLaku":0,
         })
         .then(res=>{
             alert("Data Berhasil di tambah")
@@ -157,14 +181,14 @@ export default class Admin extends Component{
         return(
             <React.Fragment>
                 <Modal isOpen={this.state.updateModal}>
-                <ModalHeader toggle={this.showUpdate}>Add Product</ModalHeader>
+                <ModalHeader toggle={this.showUpdate}>Update Product</ModalHeader>
                 <ModalBody>
                     Nama Produk
-                    <Input type="text" onChange={this.handleName} value={this.state.namaProduct||' '}/>
+                    <Input type="text" onChange={this.handleName} value={this.state.namaProduct}/>
                     Harga Product
-                    <Input type="text" onChange={this.handlePrice} value={this.state.hargaProduct||' '}/>
+                    <Input type="text" onChange={this.handlePrice} value={this.state.hargaProduct}/>
                     Stok Produk
-                    <Input type="text" onChange={this.handleStock} value={this.state.stock||' '} />
+                    <Input type="text" onChange={this.handleStock} value={this.state.stock} />
                     Jenis Produk
                     <select className="form-control" onChange={this.handleType} value={this.state.type}>
                         {selectOption}
@@ -174,7 +198,7 @@ export default class Admin extends Component{
                      <Button className="btn btn-secondary" onClick={this.showUpdate}>
                             Close
                         </Button>
-                        <Button className="btn btn-info">
+                        <Button className="btn btn-info" onClick={this.sendUpdate}>
                             Save Changes
                         </Button>
                 </ModalFooter>
