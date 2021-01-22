@@ -25,12 +25,9 @@ function App() {
             <Route path="/product" component = {Admin1(Product)} />
             <Route path="/home" component = {User(Home)} />
             <Route path="/pesan/:id" component = {User(Pesan)} />
-<<<<<<< HEAD
             <Route path="/my-order" component = {User(PesanSaya)} />
-=======
             <Route path="/pulsa" component={Admin1(Pulsa)}/>
             <Route path="/belipulsa" component={User(BeliPulsa)}/>
->>>>>>> b15ba005a82977d3c58ced9a9b09ea6f512e9853
           </Switch>
           </Router>
   );

@@ -10,23 +10,6 @@ import {Button, Container,
     Select
 }from "reactstrap"
 import axios from "axios";
-// const Product = ()=>{
-//     const baseUrl = "http://pesananapi.herokuapp.com/";
-//     const [products,setProducts] = useState([]);
-//     useEffect(()=>{
-        // axios.get(baseUrl+"food")
-        // .then(res=>{
-        //     // console.log(res.data);
-        //     setProducts(res.data);
-        // })
-//     },[])
-//     let product = products.map((pro)=>{
-//         return(
-//             <p>{pro.name}</p>
-//         )
-//     })
-//     // return product;
-// }
 
 export default class Admin extends Component{
     constructor(props){
