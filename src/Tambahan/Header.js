@@ -38,6 +38,9 @@ const Header=(props)=>{
           <NavLink href="/product">Product</NavLink>
         </NavItem>
         <NavItem>
+          <NavLink href="/pulsa">Pulsa</NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink href="/" onClick={()=>{localStorage.clear()}}>Logout</NavLink>
         </NavItem>
         </React.Fragment>
@@ -64,6 +67,9 @@ const Header=(props)=>{
         </UncontrolledDropdown>
         <NavItem>
           <NavLink href="/packet">Pengantaran Paket</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/belipulsa">Beli Pulsa</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/" onClick={()=>{localStorage.clear()}}>Logout</NavLink>
