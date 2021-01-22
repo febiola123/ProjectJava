@@ -11,6 +11,8 @@ import Product from "./Admin/product.component"
 import Home from "./User/home";
 import Pesan from "./User/pesan";
 import {Admin1,User} from "./Tambahan/Auth";
+import Pulsa from "./Admin/pulsa.component";
+import BeliPulsa from "./User/pulsa";
 
 function App() {
   return (<Router>
@@ -22,6 +24,8 @@ function App() {
             <Route path="/product" component = {Admin1(Product)} />
             <Route path="/home" component = {User(Home)} />
             <Route path="/pesan/:id" component = {User(Pesan)} />
+            <Route path="/pulsa" component={Admin1(Pulsa)}/>
+            <Route path="/belipulsa" component={User(BeliPulsa)}/>
           </Switch>
           </Router>
   );
